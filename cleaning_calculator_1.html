@@ -15,8 +15,8 @@
   --accent-light: #E4F0EB;
   --accent-text: #1A4A35;
   --border: #E2E0D8;
-  --profit: #1A4A35;
   --profit-bg: #D4EDDF;
+  --profit-text: #1A4A35;
   --warn-bg: #FFF3CD;
   --warn-text: #7A5C00;
   --radius: 14px;
@@ -31,36 +31,40 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
 .content { padding: 16px 14px; display: flex; flex-direction: column; gap: 14px; }
 .card { background: var(--card); border-radius: var(--radius); padding: 16px; border: 1px solid var(--border); }
 .card-title { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 12px; }
-.btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.btn-grid.cols3 { grid-template-columns: 1fr 1fr 1fr; }
+.btn-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.btn-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 .opt-btn { padding: 11px 8px; border-radius: var(--radius-sm); border: 1.5px solid var(--border); background: var(--bg); color: var(--text); font-family: 'Golos Text', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; text-align: center; transition: all 0.15s; line-height: 1.3; }
 .opt-btn:active { transform: scale(0.97); }
-.opt-btn.active { background: var(--accent-light); border-color: var(--accent); color: var(--accent-text); }
+.opt-btn.active { background: var(--accent-light); border-color: var(--accent); color: var(--accent-text); font-weight: 600; }
 .toggle-list { display: flex; flex-direction: column; gap: 8px; }
 .toggle-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-radius: var(--radius-sm); border: 1.5px solid var(--border); background: var(--bg); cursor: pointer; transition: all 0.15s; }
 .toggle-item:active { transform: scale(0.98); }
 .toggle-item.active { background: var(--accent-light); border-color: var(--accent); }
 .toggle-left { display: flex; flex-direction: column; gap: 2px; }
-.toggle-name { font-size: 14px; font-weight: 500; color: var(--text); }
-.toggle-price { font-size: 12px; color: var(--muted); }
-.toggle-item.active .toggle-price { color: var(--accent); }
+.toggle-name { font-size: 14px; font-weight: 500; }
+.toggle-sub { font-size: 12px; color: var(--muted); }
+.toggle-item.active .toggle-sub { color: var(--accent-text); }
 .checkmark { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; }
 .toggle-item.active .checkmark { background: var(--accent); border-color: var(--accent); }
 .checkmark svg { display: none; }
 .toggle-item.active .checkmark svg { display: block; }
+.field-label { font-size: 13px; font-weight: 500; color: var(--muted); margin-bottom: 6px; display: block; }
+.text-input { width: 100%; padding: 11px 13px; border-radius: var(--radius-sm); border: 1.5px solid var(--border); background: var(--bg); font-family: 'Golos Text', sans-serif; font-size: 14px; color: var(--text); outline: none; transition: border-color 0.15s; }
+.text-input:focus { border-color: var(--accent); }
+.input-row { margin-bottom: 10px; }
+.input-row:last-child { margin-bottom: 0; }
 .result-card { background: var(--text); border-radius: var(--radius); padding: 18px; color: #fff; }
-.result-rows { display: flex; flex-direction: column; gap: 0; }
 .result-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 14px; }
 .result-row:last-child { border-bottom: none; }
 .result-row .rl { color: rgba(255,255,255,0.6); }
-.result-row .rv { font-weight: 600; color: #fff; }
+.result-row .rv { font-weight: 600; }
 .price-block { margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.15); }
 .price-label { font-size: 12px; color: rgba(255,255,255,0.55); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-.price-main { font-size: 36px; font-weight: 700; color: #fff; line-height: 1; }
+.price-main { font-size: 36px; font-weight: 700; line-height: 1; }
 .price-range { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; }
-.profit-block { background: var(--profit-bg); border-radius: var(--radius-sm); padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-.profit-label { font-size: 13px; color: var(--profit); font-weight: 500; }
-.profit-val { font-size: 20px; font-weight: 700; color: var(--profit); }
+.profit-block { background: var(--profit-bg); border-radius: var(--radius-sm); padding: 14px; display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+.profit-label { font-size: 13px; color: var(--profit-text); font-weight: 500; }
+.profit-val { font-size: 22px; font-weight: 700; color: var(--profit-text); }
 .warn-block { background: var(--warn-bg); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 13px; color: var(--warn-text); font-weight: 500; margin-top: 10px; display: none; line-height: 1.4; }
 .warn-block.show { display: block; }
 .client-type-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -70,15 +74,9 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
 .ctype-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
 .ctype-hint { font-size: 11px; color: var(--muted); line-height: 1.3; }
 .ctype.active .ctype-name { color: var(--accent-text); }
-.ctype.active .ctype-hint { color: var(--accent); }
 .action-hint { background: var(--card); border-radius: var(--radius-sm); padding: 12px 14px; border: 1px solid var(--border); font-size: 13px; color: var(--muted); line-height: 1.5; display: none; margin-top: 8px; }
 .action-hint.show { display: block; }
 .action-hint strong { color: var(--text); }
-.field-label { font-size: 13px; font-weight: 500; color: var(--muted); margin-bottom: 6px; display: block; }
-.text-input { width: 100%; padding: 11px 13px; border-radius: var(--radius-sm); border: 1.5px solid var(--border); background: var(--bg); font-family: 'Golos Text', sans-serif; font-size: 14px; color: var(--text); outline: none; transition: border-color 0.15s; }
-.text-input:focus { border-color: var(--accent); }
-.input-row { margin-bottom: 10px; }
-.input-row:last-child { margin-bottom: 0; }
 .save-btn { width: 100%; padding: 15px; border-radius: var(--radius); border: none; background: var(--accent); color: #fff; font-family: 'Golos Text', sans-serif; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
 .save-btn:active { transform: scale(0.98); background: #1f5440; }
 .save-btn:disabled { background: #aaa; cursor: not-allowed; }
@@ -128,51 +126,57 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
 
   <div class="card">
     <div class="card-title">Тип уборки</div>
-    <div class="btn-grid">
-      <button class="opt-btn active" data-group="type" data-val="support" data-label="Поддерживающая" onclick="selectOpt(this)">Поддерживающая</button>
-      <button class="opt-btn" data-group="type" data-val="general" data-label="Генеральная" onclick="selectOpt(this)">Генеральная</button>
-      <button class="opt-btn" data-group="type" data-val="postrepair" data-label="После ремонта" onclick="selectOpt(this)">После ремонта</button>
-      <button class="opt-btn" data-group="type" data-val="commercial" data-label="Коммерческая" onclick="selectOpt(this)">Коммерческая</button>
+    <div class="btn-grid2">
+      <button class="opt-btn active" data-group="type" data-val="support" onclick="selectOpt(this)">Поддерживающая</button>
+      <button class="opt-btn" data-group="type" data-val="general" onclick="selectOpt(this)">Генеральная</button>
+      <button class="opt-btn" data-group="type" data-val="postrepair" onclick="selectOpt(this)">После ремонта</button>
+      <button class="opt-btn" data-group="type" data-val="commercial" onclick="selectOpt(this)">Коммерческая</button>
     </div>
   </div>
 
   <div class="card">
     <div class="card-title">Объект</div>
-    <div class="btn-grid cols3">
-      <button class="opt-btn active" data-group="rooms" data-val="studio" data-label="Студия" onclick="selectOpt(this)">Студия</button>
-      <button class="opt-btn" data-group="rooms" data-val="one" data-label="1к" onclick="selectOpt(this)">1к</button>
-      <button class="opt-btn" data-group="rooms" data-val="two" data-label="2к" onclick="selectOpt(this)">2к</button>
+    <div class="btn-grid3" style="margin-bottom:8px;">
+      <button class="opt-btn active" data-group="rooms" data-val="studio" onclick="selectOpt(this)">Студия</button>
+      <button class="opt-btn" data-group="rooms" data-val="one" onclick="selectOpt(this)">1к</button>
+      <button class="opt-btn" data-group="rooms" data-val="two" onclick="selectOpt(this)">2к</button>
     </div>
-    <div style="margin-top:8px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
-      <button class="opt-btn" data-group="rooms" data-val="three" data-label="3к" onclick="selectOpt(this)">3к</button>
-      <button class="opt-btn" data-group="rooms" data-val="house" data-label="Дом" onclick="selectOpt(this)">Дом</button>
-      <button class="opt-btn" data-group="rooms" data-val="bighouse" data-label="Большой дом" onclick="selectOpt(this)">Большой дом</button>
+    <div class="btn-grid3">
+      <button class="opt-btn" data-group="rooms" data-val="three" onclick="selectOpt(this)">3к</button>
+      <button class="opt-btn" data-group="rooms" data-val="house" onclick="selectOpt(this)">Дом</button>
+      <button class="opt-btn" data-group="rooms" data-val="bighouse" onclick="selectOpt(this)">Большой дом</button>
     </div>
   </div>
 
   <div class="card">
     <div class="card-title">Дополнительно</div>
     <div class="toggle-list">
-      <div class="toggle-item" id="t-windows" onclick="toggle('windows')">
+      <div class="toggle-item" id="t-windows" onclick="toggleOpt('windows')">
         <div class="toggle-left">
           <div class="toggle-name">Мытьё окон</div>
-          <div class="toggle-price">+2 500 р</div>
+          <div class="toggle-sub" id="sub-windows">нажмите чтобы добавить</div>
         </div>
-        <div class="checkmark"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="checkmark">
+          <svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
       </div>
-      <div class="toggle-item" id="t-animals" onclick="toggle('animals')">
+      <div class="toggle-item" id="t-animals" onclick="toggleOpt('animals')">
         <div class="toggle-left">
           <div class="toggle-name">Есть животные</div>
-          <div class="toggle-price">+500 р</div>
+          <div class="toggle-sub">+500 р (наши 500 р)</div>
         </div>
-        <div class="checkmark"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="checkmark">
+          <svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
       </div>
-      <div class="toggle-item" id="t-dirty" onclick="toggle('dirty')">
+      <div class="toggle-item" id="t-dirty" onclick="toggleOpt('dirty')">
         <div class="toggle-left">
           <div class="toggle-name">Сильное загрязнение</div>
-          <div class="toggle-price">жир, налёт, давно не убирали +2 000 р</div>
+          <div class="toggle-sub">+2 000 р (наши 1 000 р)</div>
         </div>
-        <div class="checkmark"><svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="checkmark">
+          <svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1 5L5 9L12 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
       </div>
     </div>
   </div>
@@ -204,10 +208,8 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
   </div>
 
   <div class="result-card">
-    <div class="result-rows">
-      <div class="result-row"><span class="rl">Себестоимость</span><span class="rv" id="r-cost">—</span></div>
-      <div class="result-row"><span class="rl">Допуслуги</span><span class="rv" id="r-extras">—</span></div>
-    </div>
+    <div class="result-row"><span class="rl">Себестоимость</span><span class="rv" id="r-cost">—</span></div>
+    <div class="result-row"><span class="rl">Допуслуги</span><span class="rv" id="r-extras">—</span></div>
     <div class="price-block">
       <div class="price-label">Называем клиенту</div>
       <div class="price-main" id="r-price">—</div>
@@ -229,7 +231,7 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
     <textarea class="text-input" id="comment" placeholder="Доп. пожелания, особенности квартиры..." rows="3" style="resize:none;"></textarea>
   </div>
 
-  <button class="save-btn" onclick="saveOrder()">
+  <button class="save-btn" id="save-btn" onclick="saveOrder()">
     💾 Сохранить заказ в таблицу
   </button>
 
@@ -238,18 +240,25 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
 <div class="toast" id="toast"></div>
 
 <script>
-const state = { type: 'support', typeLabel: 'Поддерживающая', rooms: 'studio', roomsLabel: 'Студия', windows: false, animals: false, dirty: false, ctype: 'normal' };
-
-const BASE = {
-  support:    { studio: 4500, one: 5500,  two: 7500,  three: 9500,  house: 12000, bighouse: 17000 },
-  general:    { studio: 6000, one: 8000,  two: 13000, three: 15000, house: 18000, bighouse: 24000 },
-  postrepair: { studio: 8000, one: 10000, two: 15000, three: 20000, house: 28000, bighouse: 40000 },
-  commercial: { studio: 6000, one: 7000,  two: 10000, three: 14000, house: 20000, bighouse: 28000 }
+const PRICES = {
+  studio:   { noWin: { client: 5500,  profit: 1000 }, win: { client: 7000,  profit: 1000 } },
+  one:      { noWin: { client: 7000,  profit: 1500 }, win: { client: 10500, profit: 4000 } },
+  two:      { noWin: { client: 9500,  profit: 2000 }, win: { client: 15000, profit: 4500 } },
+  three:    { noWin: { client: 12000, profit: 2500 }, win: { client: 17500, profit: 5000 } },
+  house:    { noWin: { client: 17000, profit: 5000 }, win: { client: 23000, profit: 7500 } },
+  bighouse: { noWin: { client: 24000, profit: 7000 }, win: { client: 31000, profit: 9500 } },
 };
-const MARKUP = { studio: 1000, one: 1500, two: 2000, three: 2500, house: 5000, bighouse: 7000 };
 
-let priceForClient = 0;
-let profitAmount = 0;
+const TYPE_K = {
+  support: 1.0, general: 1.5, postrepair: 2.0, commercial: 1.3,
+};
+
+const EXTRAS = {
+  animals: { client: 500,  profit: 500  },
+  dirty:   { client: 2000, profit: 1000 },
+};
+
+const S = { type: 'support', rooms: 'studio', windows: false, animals: false, dirty: false, ctype: 'normal' };
 
 function fmt(n) { return n.toLocaleString('ru-RU') + ' р'; }
 
@@ -257,120 +266,110 @@ function selectOpt(btn) {
   const group = btn.dataset.group;
   document.querySelectorAll(`[data-group="${group}"]`).forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  state[group] = btn.dataset.val;
-  state[group + 'Label'] = btn.dataset.label;
+  S[group] = btn.dataset.val;
   calc();
 }
 
-function toggle(field) {
-  state[field] = !state[field];
-  const el = document.getElementById('t-' + field);
-  if (state[field]) el.classList.add('active');
-  else el.classList.remove('active');
+function toggleOpt(field) {
+  S[field] = !S[field];
+  document.getElementById('t-' + field).classList.toggle('active', S[field]);
   calc();
 }
 
 function selectClient(el) {
   document.querySelectorAll('.ctype').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
-  state.ctype = el.dataset.ctype;
+  S.ctype = el.dataset.ctype;
   ['normal','anxious','cheap','problem'].forEach(k => {
-    const h = document.getElementById('hint-' + k);
-    if (h) h.classList.toggle('show', k === state.ctype);
+    document.getElementById('hint-' + k).classList.toggle('show', k === S.ctype);
   });
 }
 
 function calc() {
-  const base = BASE[state.type][state.rooms];
-  let extras = 0;
-  let extrasProfit = 0;
-  if (state.windows) { extras += 2500; extrasProfit += 2500; }
-  if (state.animals) { extras += 500; extrasProfit += 500; }
-  if (state.dirty) { extras += 2000; extrasProfit += 1000; }
-  const markup = MARKUP[state.rooms];
-  priceForClient = base + extras + markup;
-  profitAmount = markup + extrasProfit;
-  const priceMax = Math.round(priceForClient * 1.15 / 100) * 100;
-  document.getElementById('r-cost').textContent = fmt(base);
-  document.getElementById('r-extras').textContent = extras > 0 ? fmt(extras) : '—';
-  document.getElementById('r-price').textContent = fmt(priceForClient);
-  document.getElementById('r-range').textContent = 'диапазон: ' + fmt(priceForClient) + ' – ' + fmt(priceMax);
-  document.getElementById('r-profit').textContent = fmt(profitAmount);
-  const showWarn = (state.type === 'general' || state.dirty) && state.rooms !== 'studio';
-  document.getElementById('warn-photo').classList.toggle('show', showWarn);
-}
+  const base = PRICES[S.rooms];
+  const winKey = S.windows ? 'win' : 'noWin';
+  const k = TYPE_K[S.type];
 
-function showToast(msg, duration) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), duration || 3000);
+  const baseClient = Math.round(base[winKey].client * k);
+  const baseProfit = Math.round(base[winKey].profit * k);
+
+  const winDiff = Math.round((base['win'].client - base['noWin'].client) * k);
+  const winProfitDiff = Math.round((base['win'].profit - base['noWin'].profit) * k);
+  document.getElementById('sub-windows').textContent = S.windows
+    ? `включено +${fmt(winDiff)} (наши +${fmt(winProfitDiff)})`
+    : `добавить окна +${fmt(winDiff)}`;
+
+  let extrasClient = 0;
+  let extrasProfit = 0;
+  if (S.animals) { extrasClient += EXTRAS.animals.client; extrasProfit += EXTRAS.animals.profit; }
+  if (S.dirty)   { extrasClient += EXTRAS.dirty.client;   extrasProfit += EXTRAS.dirty.profit; }
+
+  const totalClient = baseClient + extrasClient;
+  const totalProfit = baseProfit + extrasProfit;
+  const totalMax = Math.round(totalClient * 1.15 / 100) * 100;
+  const costBase = baseClient - baseProfit;
+
+  document.getElementById('r-cost').textContent = fmt(costBase);
+  document.getElementById('r-extras').textContent = extrasClient > 0 ? fmt(extrasClient) : '—';
+  document.getElementById('r-price').textContent = fmt(totalClient);
+  document.getElementById('r-range').textContent = 'диапазон: ' + fmt(totalClient) + ' – ' + fmt(totalMax);
+  document.getElementById('r-profit').textContent = fmt(totalProfit);
+
+  document.getElementById('warn-photo').classList.toggle('show', (S.type === 'general' || S.dirty) && S.rooms !== 'studio');
+
+  return { totalClient, totalProfit };
 }
 
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzm5g0ZxdtdDS_ykJ2_GoVn-9qp8Kg10CKHLYoiSSFjCwHF259xpuSnk6-oTB-bahmY/exec';
-function getScriptUrl() { return SCRIPT_URL; }
 
-function buildExtras() {
-  const e = [];
-  if (state.windows) e.push('окна');
-  if (state.animals) e.push('животные');
-  if (state.dirty) e.push('загрязнение');
-  return e.join(', ') || '—';
+function showToast(msg, dur) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur || 3000);
 }
 
+const LABELS = {
+  type:  { support: 'Поддерживающая', general: 'Генеральная', postrepair: 'После ремонта', commercial: 'Коммерческая' },
+  rooms: { studio: 'Студия', one: '1к', two: '2к', three: '3к', house: 'Дом', bighouse: 'Большой дом' },
+};
+
 async function saveOrder() {
-  const scriptUrl = getScriptUrl();
-  const name = document.getElementById('client-name').value.trim();
-  const phone = document.getElementById('client-phone').value.trim();
   const address = document.getElementById('client-address').value.trim();
-  const area = document.getElementById('client-area').value.trim();
-  const date = document.getElementById('clean-date').value;
-  const time = document.getElementById('clean-time').value;
-  const comment = document.getElementById('comment').value.trim();
   if (!address) { showToast('⚠️ Введи адрес'); return; }
 
-  const btn = document.querySelector('.save-btn');
-  btn.disabled = true;
-  btn.textContent = 'Сохраняю...';
+  const { totalClient, totalProfit } = calc();
+  const extras = [];
+  if (S.windows) extras.push('окна');
+  if (S.animals) extras.push('животные');
+  if (S.dirty)   extras.push('загрязнение');
 
   const payload = {
     created: new Date().toLocaleString('ru-RU'),
-    name: name || '—', phone: phone || '—', address,
-    area: area ? area + ' м²' : '—',
-    date: date || '—', time: time || '—',
-    type: state.typeLabel, rooms: state.roomsLabel,
-    extras: buildExtras(), price: priceForClient,
-    profit: profitAmount, clientType: state.ctype,
-    comment: comment || '—'
+    name:    document.getElementById('client-name').value.trim() || '—',
+    phone:   document.getElementById('client-phone').value.trim() || '—',
+    address,
+    area:    document.getElementById('client-area').value.trim() ? document.getElementById('client-area').value.trim() + ' м²' : '—',
+    date:    document.getElementById('clean-date').value || '—',
+    time:    document.getElementById('clean-time').value || '—',
+    type:    LABELS.type[S.type],
+    rooms:   LABELS.rooms[S.rooms],
+    windows: S.windows ? 'да' : 'нет',
+    extras:  extras.join(', ') || '—',
+    price:   totalClient,
+    profit:  totalProfit,
+    clientType: S.ctype,
+    comment: document.getElementById('comment').value.trim() || '—',
   };
 
+  const btn = document.getElementById('save-btn');
+  btn.disabled = true;
+  btn.textContent = 'Сохраняю...';
+
   try {
-    await fetch(scriptUrl, {
+    await fetch(SCRIPT_URL, {
       method: 'POST', mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
-    showToast('✅ Заказ сохранён в таблицу!', 3000);
-    clearForm();
-  } catch(e) {
-    showToast('❌ Ошибка отправки. Проверь интернет.');
-  }
-
-  btn.disabled = false;
-  btn.innerHTML = '💾 Сохранить заказ в таблицу';
-}
-
-function clearForm() {
-  document.getElementById('client-name').value = '';
-  document.getElementById('client-phone').value = '';
-  document.getElementById('client-address').value = '';
-  document.getElementById('client-area').value = '';
-  document.getElementById('clean-date').value = '';
-  document.getElementById('clean-time').value = '10:00';
-  document.getElementById('comment').value = '';
-}
-
-window.onload = function() { calc(); };
-</script>
-</body>
-</html>
+    showToast('✅ Зак
