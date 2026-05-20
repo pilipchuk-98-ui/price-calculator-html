@@ -87,7 +87,7 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
 <body>
 
 <header>
-  <div class="logo-circle">🧹</div>
+  <div class="logo-circle">&#129529;</div>
   <div class="header-text">
     <h1>Калькулятор цены</h1>
     <p>Клининг — Химки и район</p>
@@ -197,11 +197,11 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
         <div class="ctype-hint">Торгуется, ищет минимум</div>
       </div>
       <div class="ctype" data-ctype="problem" onclick="selectClient(this)">
-        <div class="ctype-name">⚠️ Проблемный</div>
+        <div class="ctype-name">&#9888;&#65039; Проблемный</div>
         <div class="ctype-hint">Скрывает фото, давит по цене</div>
       </div>
     </div>
-    <div class="action-hint show" id="hint-normal">Быстро закрываем на бронь: <strong>«На этой неделе есть несколько свободных окон 🙌»</strong></div>
+    <div class="action-hint show" id="hint-normal">Быстро закрываем на бронь: <strong>«На этой неделе есть несколько свободных окон»</strong></div>
     <div class="action-hint" id="hint-anxious">Дать больше спокойствия: <strong>«Работаем аккуратно с техникой и мебелью, после уборки ничего не нужно перепроверять»</strong></div>
     <div class="action-hint" id="hint-cheap">Не тратить много времени. Если торгуется сильно — вежливо отпускать.</div>
     <div class="action-hint" id="hint-problem"><strong>Повышать вилку или отказываться.</strong> Попросить фото — если уходит от ответа, это сигнал.</div>
@@ -223,7 +223,7 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
   </div>
 
   <div class="warn-block" id="warn-photo">
-    📸 Не называть цену без фото — попросить прислать кухню и санузел
+    &#128248; Не называть цену без фото — попросить прислать кухню и санузел
   </div>
 
   <div class="card">
@@ -232,7 +232,7 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
   </div>
 
   <button class="save-btn" id="save-btn" onclick="saveOrder()">
-    💾 Сохранить заказ в таблицу
+    &#128190; Сохранить заказ в таблицу
   </button>
 
 </div>
@@ -240,31 +240,30 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
 <div class="toast" id="toast"></div>
 
 <script>
-const PRICES = {
+var PRICES = {
   studio:   { noWin: { client: 5500,  profit: 1000 }, win: { client: 7000,  profit: 1000 } },
   one:      { noWin: { client: 7000,  profit: 1500 }, win: { client: 10500, profit: 4000 } },
   two:      { noWin: { client: 9500,  profit: 2000 }, win: { client: 15000, profit: 4500 } },
   three:    { noWin: { client: 12000, profit: 2500 }, win: { client: 17500, profit: 5000 } },
   house:    { noWin: { client: 17000, profit: 5000 }, win: { client: 23000, profit: 7500 } },
-  bighouse: { noWin: { client: 24000, profit: 7000 }, win: { client: 31000, profit: 9500 } },
+  bighouse: { noWin: { client: 24000, profit: 7000 }, win: { client: 31000, profit: 9500 } }
 };
 
-const TYPE_K = {
-  support: 1.0, general: 1.5, postrepair: 2.0, commercial: 1.3,
-};
+var TYPE_K = { support: 1.0, general: 1.5, postrepair: 2.0, commercial: 1.3 };
 
-const EXTRAS = {
+var EXTRAS = {
   animals: { client: 500,  profit: 500  },
-  dirty:   { client: 2000, profit: 1000 },
+  dirty:   { client: 2000, profit: 1000 }
 };
 
-const S = { type: 'support', rooms: 'studio', windows: false, animals: false, dirty: false, ctype: 'normal' };
+var S = { type: 'support', rooms: 'studio', windows: false, animals: false, dirty: false, ctype: 'normal' };
 
 function fmt(n) { return n.toLocaleString('ru-RU') + ' р'; }
 
 function selectOpt(btn) {
-  const group = btn.dataset.group;
-  document.querySelectorAll(`[data-group="${group}"]`).forEach(b => b.classList.remove('active'));
+  var group = btn.dataset.group;
+  var btns = document.querySelectorAll('[data-group="' + group + '"]');
+  for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
   btn.classList.add('active');
   S[group] = btn.dataset.val;
   calc();
@@ -272,42 +271,48 @@ function selectOpt(btn) {
 
 function toggleOpt(field) {
   S[field] = !S[field];
-  document.getElementById('t-' + field).classList.toggle('active', S[field]);
+  var el = document.getElementById('t-' + field);
+  if (S[field]) el.classList.add('active');
+  else el.classList.remove('active');
   calc();
 }
 
 function selectClient(el) {
-  document.querySelectorAll('.ctype').forEach(c => c.classList.remove('active'));
+  var ctypes = document.querySelectorAll('.ctype');
+  for (var i = 0; i < ctypes.length; i++) ctypes[i].classList.remove('active');
   el.classList.add('active');
   S.ctype = el.dataset.ctype;
-  ['normal','anxious','cheap','problem'].forEach(k => {
-    document.getElementById('hint-' + k).classList.toggle('show', k === S.ctype);
-  });
+  var keys = ['normal','anxious','cheap','problem'];
+  for (var i = 0; i < keys.length; i++) {
+    var h = document.getElementById('hint-' + keys[i]);
+    if (keys[i] === S.ctype) h.classList.add('show');
+    else h.classList.remove('show');
+  }
 }
 
 function calc() {
-  const base = PRICES[S.rooms];
-  const winKey = S.windows ? 'win' : 'noWin';
-  const k = TYPE_K[S.type];
+  var base = PRICES[S.rooms];
+  var winKey = S.windows ? 'win' : 'noWin';
+  var k = TYPE_K[S.type];
 
-  const baseClient = Math.round(base[winKey].client * k);
-  const baseProfit = Math.round(base[winKey].profit * k);
+  var baseClient = Math.round(base[winKey].client * k);
+  var baseProfit = Math.round(base[winKey].profit * k);
 
-  const winDiff = Math.round((base['win'].client - base['noWin'].client) * k);
-  const winProfitDiff = Math.round((base['win'].profit - base['noWin'].profit) * k);
-  document.getElementById('sub-windows').textContent = S.windows
-    ? `включено +${fmt(winDiff)} (наши +${fmt(winProfitDiff)})`
-    : `добавить окна +${fmt(winDiff)}`;
+  var winDiff = Math.round((base['win'].client - base['noWin'].client) * k);
+  var subEl = document.getElementById('sub-windows');
+  if (subEl) {
+    subEl.textContent = S.windows ? 'включено +' + fmt(winDiff) : 'добавить окна +' + fmt(winDiff);
+  }
 
-  let extrasClient = 0;
-  let extrasProfit = 0;
+  var extrasClient = 0;
+  var extrasProfit = 0;
   if (S.animals) { extrasClient += EXTRAS.animals.client; extrasProfit += EXTRAS.animals.profit; }
   if (S.dirty)   { extrasClient += EXTRAS.dirty.client;   extrasProfit += EXTRAS.dirty.profit; }
 
-  const totalClient = baseClient + extrasClient;
-  const totalProfit = baseProfit + extrasProfit;
-  const totalMax = Math.round(totalClient * 1.15 / 100) * 100;
-  const costBase = baseClient - baseProfit;
+  var totalClient = baseClient + extrasClient;
+  var totalProfit = baseProfit + extrasProfit;
+  var totalMax = Math.round(totalClient * 1.15 / 100) * 100;
+  var costBase = baseClient - baseProfit;
 
   document.getElementById('r-cost').textContent = fmt(costBase);
   document.getElementById('r-extras').textContent = extrasClient > 0 ? fmt(extrasClient) : '—';
@@ -315,61 +320,78 @@ function calc() {
   document.getElementById('r-range').textContent = 'диапазон: ' + fmt(totalClient) + ' – ' + fmt(totalMax);
   document.getElementById('r-profit').textContent = fmt(totalProfit);
 
-  document.getElementById('warn-photo').classList.toggle('show', (S.type === 'general' || S.dirty) && S.rooms !== 'studio');
+  var showWarn = (S.type === 'general' || S.dirty) && S.rooms !== 'studio';
+  var warnEl = document.getElementById('warn-photo');
+  if (showWarn) warnEl.classList.add('show');
+  else warnEl.classList.remove('show');
 
-  return { totalClient, totalProfit };
+  return { totalClient: totalClient, totalProfit: totalProfit };
 }
 
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzm5g0ZxdtdDS_ykJ2_GoVn-9qp8Kg10CKHLYoiSSFjCwHF259xpuSnk6-oTB-bahmY/exec';
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzm5g0ZxdtdDS_ykJ2_GoVn-9qp8Kg10CKHLYoiSSFjCwHF259xpuSnk6-oTB-bahmY/exec';
 
 function showToast(msg, dur) {
-  const t = document.getElementById('toast');
+  var t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), dur || 3000);
+  setTimeout(function() { t.classList.remove('show'); }, dur || 3000);
 }
 
-const LABELS = {
-  type:  { support: 'Поддерживающая', general: 'Генеральная', postrepair: 'После ремонта', commercial: 'Коммерческая' },
-  rooms: { studio: 'Студия', one: '1к', two: '2к', three: '3к', house: 'Дом', bighouse: 'Большой дом' },
-};
+var LABELS_TYPE  = { support: 'Поддерживающая', general: 'Генеральная', postrepair: 'После ремонта', commercial: 'Коммерческая' };
+var LABELS_ROOMS = { studio: 'Студия', one: '1к', two: '2к', three: '3к', house: 'Дом', bighouse: 'Большой дом' };
 
-async function saveOrder() {
-  const address = document.getElementById('client-address').value.trim();
-  if (!address) { showToast('⚠️ Введи адрес'); return; }
+function saveOrder() {
+  var address = document.getElementById('client-address').value.trim();
+  if (!address) { showToast('Введи адрес'); return; }
 
-  const { totalClient, totalProfit } = calc();
-  const extras = [];
+  var result = calc();
+  var extras = [];
   if (S.windows) extras.push('окна');
   if (S.animals) extras.push('животные');
   if (S.dirty)   extras.push('загрязнение');
 
-  const payload = {
-    created: new Date().toLocaleString('ru-RU'),
-    name:    document.getElementById('client-name').value.trim() || '—',
-    phone:   document.getElementById('client-phone').value.trim() || '—',
-    address,
-    area:    document.getElementById('client-area').value.trim() ? document.getElementById('client-area').value.trim() + ' м²' : '—',
-    date:    document.getElementById('clean-date').value || '—',
-    time:    document.getElementById('clean-time').value || '—',
-    type:    LABELS.type[S.type],
-    rooms:   LABELS.rooms[S.rooms],
-    windows: S.windows ? 'да' : 'нет',
-    extras:  extras.join(', ') || '—',
-    price:   totalClient,
-    profit:  totalProfit,
+  var areaVal = document.getElementById('client-area').value.trim();
+  var payload = {
+    created:    new Date().toLocaleString('ru-RU'),
+    name:       document.getElementById('client-name').value.trim() || '—',
+    phone:      document.getElementById('client-phone').value.trim() || '—',
+    address:    address,
+    area:       areaVal ? areaVal + ' м²' : '—',
+    date:       document.getElementById('clean-date').value || '—',
+    time:       document.getElementById('clean-time').value || '—',
+    type:       LABELS_TYPE[S.type],
+    rooms:      LABELS_ROOMS[S.rooms],
+    windows:    S.windows ? 'да' : 'нет',
+    extras:     extras.join(', ') || '—',
+    price:      result.totalClient,
+    profit:     result.totalProfit,
     clientType: S.ctype,
-    comment: document.getElementById('comment').value.trim() || '—',
+    comment:    document.getElementById('comment').value.trim() || '—'
   };
 
-  const btn = document.getElementById('save-btn');
+  var btn = document.getElementById('save-btn');
   btn.disabled = true;
   btn.textContent = 'Сохраняю...';
 
-  try {
-    await fetch(SCRIPT_URL, {
-      method: 'POST', mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    showToast('✅ Зак
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function() {
+    showToast('Заказ сохранён!', 3000);
+    var ids = ['client-name','client-phone','client-address','client-area','clean-date','comment'];
+    for (var i = 0; i < ids.length; i++) document.getElementById(ids[i]).value = '';
+    document.getElementById('clean-time').value = '10:00';
+  }).catch(function() {
+    showToast('Ошибка. Проверь интернет.');
+  }).finally(function() {
+    btn.disabled = false;
+    btn.textContent = 'Сохранить заказ в таблицу';
+  });
+}
+
+calc();
+</script>
+</body>
+</html>
