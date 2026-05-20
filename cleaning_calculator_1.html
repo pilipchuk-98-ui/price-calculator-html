@@ -84,8 +84,6 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
 .save-btn:disabled { background: #aaa; cursor: not-allowed; }
 .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1A1A18; color: #fff; padding: 12px 20px; border-radius: 30px; font-size: 14px; font-weight: 500; opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; z-index: 100; }
 .toast.show { opacity: 1; }
-.setup-banner { background: #FFF3CD; border: 1px solid #F0C040; border-radius: var(--radius-sm); padding: 12px 14px; font-size: 13px; color: #7A5C00; line-height: 1.5; }
-.setup-banner strong { display: block; margin-bottom: 4px; font-size: 14px; }
 </style>
 </head>
 <body>
@@ -99,13 +97,6 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
 </header>
 
 <div class="content">
-
-  <!-- SETUP BANNER — убрать после настройки -->
-  <div class="setup-banner" id="setup-banner">
-    <strong>⚙️ Нужна настройка Google Таблицы</strong>
-    Вставь ссылку скрипта в поле ниже, чтобы заказы сохранялись автоматически.
-    <input class="text-input" id="script-url-input" placeholder="https://script.google.com/macros/s/..." style="margin-top:8px;" oninput="saveScriptUrl()">
-  </div>
 
   <div class="card">
     <div class="card-title">Данные заказа</div>
@@ -148,8 +139,9 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
       <button class="opt-btn" data-group="rooms" data-val="two" data-label="2к" onclick="selectOpt(this)">2к</button>
       <button class="opt-btn" data-group="rooms" data-val="three" data-label="3к" onclick="selectOpt(this)">3к</button>
     </div>
-    <div style="margin-top:8px;">
-      <button class="opt-btn" style="width:100%;" data-group="rooms" data-val="house" data-label="Дом/большой" onclick="selectOpt(this)">Дом / большой объект</button>
+    <div style="margin-top:8px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+      <button class="opt-btn" data-group="rooms" data-val="house" data-label="Дом" onclick="selectOpt(this)">Дом</button>
+      <button class="opt-btn" data-group="rooms" data-val="bighouse" data-label="Большой дом" onclick="selectOpt(this)">Большой дом</button>
     </div>
   </div>
 
@@ -251,12 +243,12 @@ header { background: var(--accent); padding: 20px 18px 18px; display: flex; alig
 const state = { type: 'support', typeLabel: 'Поддерживающая', rooms: 'studio', roomsLabel: 'Студия/1к', windows: false, appliances: false, animals: false, dirty: false, ctype: 'normal' };
 
 const BASE = {
-  support:    { studio: 5500,  two: 7500,  three: 9000,  house: 12000 },
-  general:    { studio: 8000,  two: 12000, three: 16000, house: 22000 },
-  postrepair: { studio: 10000, two: 15000, three: 20000, house: 28000 },
-  commercial: { studio: 7000,  two: 10000, three: 14000, house: 20000 }
+  support:    { studio: 5500,  two: 7500,  three: 9000,  house: 12000, bighouse: 18000 },
+  general:    { studio: 8000,  two: 12000, three: 16000, house: 22000, bighouse: 32000 },
+  postrepair: { studio: 10000, two: 15000, three: 20000, house: 28000, bighouse: 40000 },
+  commercial: { studio: 7000,  two: 10000, three: 14000, house: 20000, bighouse: 28000 }
 };
-const MARKUP = { studio: 2000, two: 3500, three: 4500, house: 5000 };
+const MARKUP = { studio: 1500, two: 2000, three: 3000, house: 5000, bighouse: 7500 };
 
 let priceForClient = 0;
 let profitAmount = 0;
@@ -318,14 +310,9 @@ function showToast(msg, duration) {
   setTimeout(() => t.classList.remove('show'), duration || 3000);
 }
 
-function saveScriptUrl() {
-  const val = document.getElementById('script-url-input').value.trim();
-  if (val) localStorage.setItem('gs_script_url', val);
-}
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzm5g0ZxdtdDS_ykJ2_GoVn-9qp8Kg10CKHLYoiSSFjCwHF259xpuSnk6-oTB-bahmY/exec';
 
-function getScriptUrl() {
-  return localStorage.getItem('gs_script_url') || document.getElementById('script-url-input').value.trim();
-}
+function getScriptUrl() { return SCRIPT_URL; }
 
 function buildExtras() {
   const e = [];
@@ -338,10 +325,6 @@ function buildExtras() {
 
 async function saveOrder() {
   const scriptUrl = getScriptUrl();
-  if (!scriptUrl || !scriptUrl.startsWith('https://script.google.com')) {
-    showToast('⚠️ Сначала вставь ссылку Google скрипта вверху');
-    return;
-  }
   const name = document.getElementById('client-name').value.trim();
   const phone = document.getElementById('client-phone').value.trim();
   const address = document.getElementById('client-address').value.trim();
@@ -358,25 +341,16 @@ async function saveOrder() {
   const created = now.toLocaleString('ru-RU');
 
   const payload = {
-    created,
-    name: name || '—',
-    phone: phone || '—',
-    address,
-    date: date || '—',
-    time: time || '—',
-    type: state.typeLabel,
-    rooms: state.roomsLabel,
-    extras: buildExtras(),
-    price: priceForClient,
-    profit: profitAmount,
-    clientType: state.ctype,
-    comment: comment || '—'
+    created, name: name || '—', phone: phone || '—', address,
+    date: date || '—', time: time || '—', type: state.typeLabel,
+    rooms: state.roomsLabel, extras: buildExtras(),
+    price: priceForClient, profit: profitAmount,
+    clientType: state.ctype, comment: comment || '—'
   };
 
   try {
     await fetch(scriptUrl, {
-      method: 'POST',
-      mode: 'no-cors',
+      method: 'POST', mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
@@ -399,14 +373,7 @@ function clearForm() {
   document.getElementById('comment').value = '';
 }
 
-window.onload = function() {
-  const saved = localStorage.getItem('gs_script_url');
-  if (saved) {
-    document.getElementById('script-url-input').value = saved;
-    document.getElementById('setup-banner').style.display = 'none';
-  }
-  calc();
-};
+window.onload = function() { calc(); };
 </script>
 </body>
 </html>
